@@ -622,30 +622,32 @@ toggleBtn.onclick = () => {
     toggleBtn.textContent = "🌙 Night Mode";
   }
 };
-  function explodeBears() {
+ function explodeBears() {
     // إعدادات حجم الدبدوب
-    const scalar = 4;
+    const scalar = 3; // صغرت الحجم سيكة عشان ميبقاش تقيل
     
-    // تشكيل الدبدوب والقلب من الإيموجي
+    // تشكيل الدبدوب والقلب
     const bear = confetti.shapeFromText({ text: '🧸', scalar });
     const heart = confetti.shapeFromText({ text: '❤️', scalar });
 
     // تشغيل الفرقعة
     confetti({
-        particleCount: 40,  // عدد الدباديب
-        spread: 100,        // ينتشروا قد إيه
-        origin: { y: 0.7 }, // مكان الانطلاق (من تحت شوية)
-        shapes: [bear, heart], // الأشكال المستخدمة
-        scalar: scalar,     // الحجم
-        gravity: 0.6,       // الجاذبية (عشان ينزلوا ببطء)
-        drift: 0,           // اتجاه الهواء
-        ticks: 200          // يفضلوا موجودين وقت قد إيه
+        particleCount: 50,  
+        spread: 100,        
+        origin: { y: 0.7 }, 
+        shapes: [bear, heart], 
+        scalar: scalar,     
+        gravity: 0.6,       
+        drift: 0,           
+        ticks: 200,
+        zIndex: 99999 // 👈 ده السطر السحري اللي هيظهرهم فوق كل حاجة
     });
 }
 </script>
 
 </body>
 </html>
+
 
 
 
