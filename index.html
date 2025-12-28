@@ -346,6 +346,31 @@ body{
     
     <button onclick="alert('بحبببببببببببببببببببببببببك ي منارتي ♥️😍')" class="tab-btn" style="background:#ff8fa3; color:white;">لما اوحشك 🫂</button>
 </div>
+      <div style="text-align: center; margin-top: 40px; margin-bottom: 20px;">
+    <p style="color: var(--accent); font-weight: bold; margin-bottom: 10px;">دوس على القلب ده كدة 👇</p>
+    
+    <div onclick="explodeBears()" style="
+        font-size: 4rem; 
+        cursor: pointer; 
+        display: inline-block;
+        animation: heartBeat 1.5s infinite;
+        user-select: none;
+        transition: transform 0.1s;
+    " onmousedown="this.style.transform='scale(0.9)'" onmouseup="this.style.transform='scale(1)'">
+        ❤️
+    </div>
+</div>
+
+<style>
+/* حركة نبض القلب */
+@keyframes heartBeat {
+    0% { transform: scale(1); }
+    15% { transform: scale(1.3); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.15); }
+    60% { transform: scale(1); }
+}
+</style>
     </div>
 
     <div id="photos" class="section-content">
@@ -597,10 +622,31 @@ toggleBtn.onclick = () => {
     toggleBtn.textContent = "🌙 Night Mode";
   }
 };
+  function explodeBears() {
+    // إعدادات حجم الدبدوب
+    const scalar = 4;
+    
+    // تشكيل الدبدوب والقلب من الإيموجي
+    const bear = confetti.shapeFromText({ text: '🧸', scalar });
+    const heart = confetti.shapeFromText({ text: '❤️', scalar });
+
+    // تشغيل الفرقعة
+    confetti({
+        particleCount: 40,  // عدد الدباديب
+        spread: 100,        // ينتشروا قد إيه
+        origin: { y: 0.7 }, // مكان الانطلاق (من تحت شوية)
+        shapes: [bear, heart], // الأشكال المستخدمة
+        scalar: scalar,     // الحجم
+        gravity: 0.6,       // الجاذبية (عشان ينزلوا ببطء)
+        drift: 0,           // اتجاه الهواء
+        ticks: 200          // يفضلوا موجودين وقت قد إيه
+    });
+}
 </script>
 
 </body>
 </html>
+
 
 
 
