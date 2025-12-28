@@ -28,7 +28,7 @@ body{
   position:fixed;
   inset:0;
   pointer-events:none;
-  z-index:1;
+  z-index:0;
 }
 .float{
   position:absolute;
@@ -42,6 +42,31 @@ body{
   from{transform:translateY(0) rotate(0deg);opacity:.9}
   to{transform:translateY(-120vh) rotate(360deg);opacity:0}
 }
+
+/* 🧸 كود حركة الدباديب الجديد (CSS Animation) */
+.bear-particle {
+    position: fixed;
+    top: 70%; /* يبدأ من عند الزرار تقريباً */
+    left: 50%;
+    font-size: 2.5rem; /* حجم الدبدوب */
+    pointer-events: none; /* عشان ميعطلش الدوس */
+    z-index: 9999999; /* فوق كل حاجة */
+    opacity: 0;
+    animation: bearFly ease-out forwards;
+}
+
+@keyframes bearFly {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        /* المتغيرات دي بتتحدد في الجافاسكريبت لكل دبدوب */
+        transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(var(--r));
+        opacity: 0;
+    }
+}
+/* ------------------------------------------ */
 
 /* LOGIN */
 #login-overlay{
@@ -154,41 +179,30 @@ body{
   border-radius:20px;
   padding:20px;
   overflow-y:auto;
+  position: relative;
+  z-index: 5;
 }
 
-/* --- إضافة 2: تجميل شكل السكرول بار (شريط التمرير) --- */
-.content-display::-webkit-scrollbar {
-    width: 8px;
-}
-.content-display::-webkit-scrollbar-track {
-    background: #fff0f5; 
-    border-radius: 10px;
-}
-.content-display::-webkit-scrollbar-thumb {
-    background: var(--accent); 
-    border-radius: 10px;
-}
-.content-display::-webkit-scrollbar-thumb:hover {
-    background: #c2185b; 
-}
-/* ---------------------------------------------------- */
+/* SCROLLBAR */
+.content-display::-webkit-scrollbar { width: 8px; }
+.content-display::-webkit-scrollbar-track { background: #fff0f5; border-radius: 10px; }
+.content-display::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
 
 .section-content{display:none}
 .section-content.active{display:block}
 
-/* --- إضافة 1: تنسيق الكلام والفقرات --- */
+/* LETTER TEXT */
 .letter-text {
-    direction: rtl; /* عشان الكلام عربي */
-    text-align: center; /* توسيط الكلام */
-    padding: 0 10px;
+  direction: rtl;
+  text-align: center;
+  padding: 0 10px;
 }
 .letter-text p {
-    font-size: 1.1rem;
-    line-height: 1.8; /* مسافة مريحة بين السطور */
-    margin-bottom: 20px; /* مسافة بين كل فقرة والتانية */
-    color: #444;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  color: #444;
 }
-/* -------------------------------------- */
 
 /* PHOTOS GRID */
 .photo-grid {
@@ -196,7 +210,6 @@ body{
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
 }
-
 .album-img {
   width: 100%;
   height: 150px;
@@ -205,7 +218,6 @@ body{
   cursor: zoom-in;
   transition: transform 0.3s, box-shadow 0.3s;
 }
-
 .album-img:hover {
   transform: scale(1.05);
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
@@ -264,13 +276,10 @@ body{
   animation:floatUp linear infinite;
 }
 
-/* NIGHT MODE STARS ANIMATION */
-@keyframes twinkle{
-  0%,100%{opacity:0.5;}
-  50%{opacity:1;}
-}
+/* NIGHT MODE */
+@keyframes twinkle{ 0%,100%{opacity:0.5;} 50%{opacity:1;} }
 
-/* MOBILE */
+/* MEDIA QUERIES */
 @media(max-width:820px){
   .welcome-text{font-size:2.3rem}
   .content-display{height:60vh}
@@ -310,8 +319,6 @@ body{
   <span class="float" style="left:50%;animation-duration:14s;">💖</span>
   <span class="float" style="left:70%;animation-duration:11s;">💕</span>
   <span class="float" style="left:90%;animation-duration:13s;">🧸</span>
-    <span class="float" style="left:90%;animation-duration:13s;">🧸</span>
-      <span class="float" style="left:90%;animation-duration:13s;">🧸</span>
 </div>
 
 <div id="main-content">
@@ -326,6 +333,7 @@ body{
   </div>
 
   <div class="content-display">
+    
     <div id="letter" class="section-content active">
       <div class="letter-text">
           <p>كل سنة وانتي معايا وأنا دايمًا جنبك 🎂🎉🫂♥️</p>
@@ -341,36 +349,35 @@ body{
           <p>كل سنه وانتي منوره حياتي كلها اللهم إني استودعتك عامًا مضى من عمرها ف يارب أكتب لها الخير والسعادة في أيامها القادمة وعقبال مليون سنه وانتي معايا ♥️♥️</p>
           <p>ربنا يخليكي ليا ي احلي حاجه حصلتلي ف حياتي بجد احلي صدفه اني قابلتك بدعي دايما ف صلاتي تكوني من نصيبي ومش هبطل دا ابدا✨♥️.</p>
       </div>
-      <div style="margin-top:30px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-    <button onclick="alert('أنا دايماً جنبك وسند ليكي متخافيش من حاجة طول ما احنا سوا 🫂❤️')" class="tab-btn" style="background:#ff8fa3; color:white;">لما تكوني خايفة 🥺</button>
-    
-    <button onclick="alert('بحبببببببببببببببببببببببببك ي منارتي ♥️😍')" class="tab-btn" style="background:#ff8fa3; color:white;">لما اوحشك 🫂</button>
-</div>
-      <div style="text-align: center; margin-top: 40px; margin-bottom: 20px;">
-    <p style="color: var(--accent); font-weight: bold; margin-bottom: 10px;">دوس على القلب ده كدة 👇</p>
-    
-    <div onclick="explodeBears()" style="
-        font-size: 4rem; 
-        cursor: pointer; 
-        display: inline-block;
-        animation: heartBeat 1.5s infinite;
-        user-select: none;
-        transition: transform 0.1s;
-    " onmousedown="this.style.transform='scale(0.9)'" onmouseup="this.style.transform='scale(1)'">
-        ❤️
-    </div>
-</div>
 
-<style>
-/* حركة نبض القلب */
-@keyframes heartBeat {
-    0% { transform: scale(1); }
-    15% { transform: scale(1.3); }
-    30% { transform: scale(1); }
-    45% { transform: scale(1.15); }
-    60% { transform: scale(1); }
-}
-</style>
+      <div style="margin-top:30px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+        <button onclick="alert('أنا دايماً جنبك وسند ليكي متخافيش من حاجة طول ما احنا سوا 🫂❤️')" class="tab-btn" style="background:#ff8fa3; color:white;">لما تكوني خايفة 🥺</button>
+        <button onclick="alert('بحبببببببببببببببببببببببببك ي منارتي ♥️😍')" class="tab-btn" style="background:#ff8fa3; color:white;">لما اوحشك 🫂</button>
+      </div>
+
+      <div style="text-align: center; margin-top: 40px; margin-bottom: 20px; position: relative; z-index: 100;">
+        <p style="color: var(--accent); font-weight: bold; margin-bottom: 10px;">دوس على القلب ده كدة 👇</p>
+        <div onclick="explodeBears()" style="
+            font-size: 4rem; 
+            cursor: pointer; 
+            display: inline-block;
+            animation: heartBeat 1.5s infinite;
+            user-select: none;
+            transition: transform 0.1s;
+        " onmousedown="this.style.transform='scale(0.9)'" onmouseup="this.style.transform='scale(1)'">
+            ❤️
+        </div>
+      </div>
+      
+      <style>
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.3); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.15); }
+            60% { transform: scale(1); }
+        }
+      </style>
     </div>
 
     <div id="photos" class="section-content">
@@ -407,83 +414,65 @@ body{
         <li>وعد إني أفضل جنبك العمر كلو ومش هسيبك وحبي هيفضل يزيد♥️</li>
         <li>كل سنه وانتي طيبه يعمري 🎂</li>
       </ul>
+      
       <div style="
-    background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364); /* تدرج ألوان السما بالليل */
-    padding: 25px;
-    border-radius: 20px;
-    margin-top: 30px;
-    text-align: center;
-    box-shadow: 0 0 25px rgba(255, 255, 255, 0.15); /* توهج أبيض خفيف */
-    border: 1px solid #7aa1d2;
-    position: relative;
-    overflow: hidden;
-    color: white;
-">
-    <div style="
-        position: absolute; inset: 0;
-        background-image: radial-gradient(white 1px, transparent 1px);
-        background-size: 50px 50px;
-        opacity: 0.3;
-    "></div>
-
-    <div style="position: relative; z-index: 1;">
+        background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+        padding: 25px;
+        border-radius: 20px;
+        margin-top: 30px;
+        text-align: center;
+        box-shadow: 0 0 25px rgba(255, 255, 255, 0.15);
+        border: 1px solid #7aa1d2;
+        position: relative;
+        overflow: hidden;
+        color: white;
+      ">
         <div style="
-            font-size: 4rem; 
-            margin-bottom: 10px; 
-            animation: moonGlow 3s infinite alternate;
-            cursor: pointer;
-        ">🌕</div>
-        
-        <h3 style="
-            color: #fff;
-            font-family: 'Dancing Script', cursive;
-            font-size: 2.2rem;
-            margin: 0;
-            text-shadow: 0 0 10px #fff;
-        ">
-            انتي قمري..
-        </h3>
-        
-        <p style="
-            color: #e6e6e6;
-            font-weight: bold;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-top: 15px;
-        ">
-            الدنيا كلها ضلمة.. وانتي النور الوحيد اللي فيها.<br>
-            وجودك هو اللي بيطمن قلبي وينور عتمة أيامي.
-        </p>
-        
-        <div style="
-            margin-top: 20px;
-            background: rgba(255,255,255,0.1);
-            display: inline-block;
-            padding: 10px 25px;
-            border-radius: 50px;
-            border: 1px solid rgba(255,255,255,0.5);
-            color: #fff;
-            font-weight: bold;
-            backdrop-filter: blur(5px);
-        ">
-            ابتسمي عشان القمر يكمل 😉🌕
+            position: absolute; inset: 0;
+            background-image: radial-gradient(white 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.3;
+        "></div>
+        <div style="position: relative; z-index: 1;">
+            <div style="
+                font-size: 4rem; 
+                margin-bottom: 10px; 
+                animation: moonGlow 3s infinite alternate;
+                cursor: pointer;
+            ">🌕</div>
+            <h3 style="
+                color: #fff;
+                font-family: 'Dancing Script', cursive;
+                font-size: 2.2rem;
+                margin: 0;
+                text-shadow: 0 0 10px #fff;
+            ">انتي قمري..</h3>
+            <p style="
+                color: #e6e6e6;
+                font-weight: bold;
+                font-size: 1.1rem;
+                line-height: 1.6;
+                margin-top: 15px;
+            ">الدنيا كلها ضلمة.. وانتي النور الوحيد اللي فيها.<br>وجودك هو اللي بيطمن قلبي وينور عتمة أيامي.</p>
+            <div style="
+                margin-top: 20px;
+                background: rgba(255,255,255,0.1);
+                display: inline-block;
+                padding: 10px 25px;
+                border-radius: 50px;
+                border: 1px solid rgba(255,255,255,0.5);
+                color: #fff;
+                font-weight: bold;
+                backdrop-filter: blur(5px);
+            ">ابتسمي عشان القمر يكمل 😉🌕</div>
         </div>
-    </div>
-</div>
-
-<style>
-/* حركة توهج القمر */
-@keyframes moonGlow {
-    from { 
-        text-shadow: 0 0 10px #fff, 0 0 20px #fffacd; 
-        transform: scale(1); 
-    }
-    to { 
-        text-shadow: 0 0 30px #fff, 0 0 50px #fffacd; 
-        transform: scale(1.1); 
-    }
-}
-</style>
+      </div>
+      <style>
+        @keyframes moonGlow {
+            from { text-shadow: 0 0 10px #fff, 0 0 20px #fffacd; transform: scale(1); }
+            to { text-shadow: 0 0 30px #fff, 0 0 50px #fffacd; transform: scale(1.1); }
+        }
+      </style>
     </div>
   </div>
 </div>
@@ -517,20 +506,25 @@ function checkPassword(){
   const box=document.querySelector(".login-box");
 
   if(pass.value===SECRET){
-    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+    // الكونفيتي الأساسي عند الدخول (ألوان عادية مضمونة)
+    confetti({ 
+      particleCount: 150, 
+      spread: 70, 
+      origin: { y: 0.6 },
+      colors: ['#e91e63', '#ffb6c1', '#ffffff'], 
+      zIndex: 9999999 
+    });
 
     overlay.style.opacity="0";
     setTimeout(()=>{
       overlay.style.display="none";
       greeting.style.display="flex";
-
       setTimeout(()=>{
         greeting.style.display="none";
         main.style.display="block";
         typeText("Welcome Ya Ro7y 💕");
         updateDaysTogether();
       },2000);
-
     },800);
   }else{
     error.style.display="block";
@@ -545,7 +539,6 @@ function showTab(id,btn){
     s.style.display="none";
   });
   document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
-
   const active=document.getElementById(id);
   active.style.display="block";
   active.classList.add("active");
@@ -583,25 +576,19 @@ function updateDaysTogether(){
   const startDate = new Date("2025-10-30T00:00:00");
   const now = new Date();
   let diff = Math.floor((now - startDate) / 1000);
-
   const days = Math.floor(diff / (3600*24));
   diff -= days * 3600 * 24;
-
   const hours = Math.floor(diff / 3600);
   diff -= hours * 3600;
-
   const minutes = Math.floor(diff / 60);
   const seconds = diff - minutes * 60;
-
   document.getElementById("days-together").textContent = 
     `احنا مع بعض من ${days} يوم و ${hours} ساعة و ${minutes} دقيقة و ${seconds} ثانية ❤️`;
 }
-
 setInterval(updateDaysTogether, 1000);
 
 let nightMode = false;
 const toggleBtn = document.getElementById("toggle-night");
-
 toggleBtn.onclick = () => {
   nightMode = !nightMode;
   const floats = document.querySelectorAll(".float");
@@ -622,44 +609,37 @@ toggleBtn.onclick = () => {
     toggleBtn.textContent = "🌙 Night Mode";
   }
 };
- function explodeBears() {
-    // 1. إعدادات حجم الدبدوب
-    const scalar = 3; 
 
-    // 2. تشكيل الدبدوب والقلب (مع تحديد نوع الخط عشان يظهر)
-    const bear = confetti.shapeFromText({ 
-        text: '🧸', 
-        scalar: scalar,
-        fontFamily: '"Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", "Android Emoji", sans-serif'
-    });
-    
-    const heart = confetti.shapeFromText({ 
-        text: '❤️', 
-        scalar: scalar,
-        fontFamily: '"Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", "Android Emoji", sans-serif'
-    });
+/* --- دالة انفجار الدباديب (الطريقة الجديدة المضمونة) --- */
+function explodeBears() {
+    const numBears = 50; // عدد الدباديب
 
-    // 3. تشغيل الفرقعة
-    confetti({
-        particleCount: 60,  
-        spread: 120,        
-        origin: { y: 0.7 }, 
-        shapes: [bear, heart], 
-        scalar: scalar,     
-        gravity: 0.5,       
-        drift: 0,           
-        ticks: 200,
-        zIndex: 2147483647 // 👈 رقم عالي جداً عشان يضمن الظهور
-    });
+    for (let i = 0; i < numBears; i++) {
+        const bear = document.createElement("div");
+        bear.innerHTML = "🧸";
+        bear.className = "bear-particle";
+
+        // حسابات عشوائية للحركة
+        const tx = (Math.random() - 0.5) * window.innerWidth * 1.5; // تنتشر بالعرض
+        const ty = (Math.random() - 1) * window.innerHeight * 1.5;   // تطلع لفوق اكتر
+        const r = Math.random() * 720 - 360; // دوران عشوائي
+        const duration = Math.random() * 2 + 1; // سرعة عشوائية
+
+        // تطبيق المتغيرات على الـ CSS
+        bear.style.setProperty("--tx", `${tx}px`);
+        bear.style.setProperty("--ty", `${ty}px`);
+        bear.style.setProperty("--r", `${r}deg`);
+        bear.style.animationDuration = `${duration}s`;
+
+        document.body.appendChild(bear);
+
+        // مسح الدبدوب بعد ما الحركة تخلص
+        setTimeout(() => {
+            bear.remove();
+        }, duration * 1000);
+    }
 }
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
