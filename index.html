@@ -623,30 +623,40 @@ toggleBtn.onclick = () => {
   }
 };
  function explodeBears() {
-    // إعدادات حجم الدبدوب
-    const scalar = 3; // صغرت الحجم سيكة عشان ميبقاش تقيل
-    
-    // تشكيل الدبدوب والقلب
-    const bear = confetti.shapeFromText({ text: '🧸', scalar });
-    const heart = confetti.shapeFromText({ text: '❤️', scalar });
+    // 1. إعدادات حجم الدبدوب
+    const scalar = 3; 
 
-    // تشغيل الفرقعة
+    // 2. تشكيل الدبدوب والقلب (مع تحديد نوع الخط عشان يظهر)
+    const bear = confetti.shapeFromText({ 
+        text: '🧸', 
+        scalar: scalar,
+        fontFamily: '"Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", "Android Emoji", sans-serif'
+    });
+    
+    const heart = confetti.shapeFromText({ 
+        text: '❤️', 
+        scalar: scalar,
+        fontFamily: '"Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", "Android Emoji", sans-serif'
+    });
+
+    // 3. تشغيل الفرقعة
     confetti({
-        particleCount: 50,  
-        spread: 100,        
+        particleCount: 60,  
+        spread: 120,        
         origin: { y: 0.7 }, 
         shapes: [bear, heart], 
         scalar: scalar,     
-        gravity: 0.6,       
+        gravity: 0.5,       
         drift: 0,           
         ticks: 200,
-        zIndex: 99999 // 👈 ده السطر السحري اللي هيظهرهم فوق كل حاجة
+        zIndex: 2147483647 // 👈 رقم عالي جداً عشان يضمن الظهور
     });
 }
 </script>
 
 </body>
 </html>
+
 
 
 
